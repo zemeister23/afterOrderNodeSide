@@ -15,7 +15,8 @@ const Cat = mongoose.model('User', {
   name: String,
   number: String,
   course: String,
-  password: String
+  password: String,
+  isLogin: Boolean,
 });
 // USE ADMIN AND CREATE SCHEMA
 const Admin = mongoose.model('Admin', {
@@ -31,7 +32,6 @@ router.get('/', function (req, res, next) {
 /* GET finded user listing. */
 router.get('/:phonenumber', function (req, res, next) {
   Cat.find({'number' : req.params.phonenumber}).then((result) => res.json(result));
-
 });
 /* GET users listing. */
 router.get('/admin', function (req, res, next) {
@@ -43,7 +43,8 @@ router.post('/', (req, res, next) => {
     name: req.body.name,
     number: req.body.number,
     course: req.body.course,
-    password: req.body.password
+    password: req.body.password,
+    isLogin: req.body.isLogin
   });
   kitty.save().then(() => res.send(req.body));
 });
@@ -54,6 +55,15 @@ router.post('/admin', (req, res, next) => {
     password: req.body.password
   });
   admin.save().then(() => res.send(req.body));
+});
+
+// UPDATE THE ISLOGIN TO False
+router.post('/updateIsLoginToFalse',  (req,res,next) => {
+  Cat.findOneAndUpdate({'isLogin': true},{'isLogin':false}).then((result) => res.json(result));
+});
+// UPDATE THE ISLOGIN TO True
+router.post('/updateIsLoginToTrue',  (req,res,next) => {
+  Cat.findOneAndUpdate({'isLogin': false},{'isLogin':true}).then((result) => res.json(result));
 });
 
 // DELETE NEW USER FOR COURSE
