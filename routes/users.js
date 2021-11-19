@@ -29,14 +29,17 @@ router.get('/', function (req, res, next) {
   Cat.find({}).then((result) => res.json(result));
 
 });
-/* GET finded user listing. */
-router.get('/:phonenumber', function (req, res, next) {
-  Cat.find({'number' : req.params.phonenumber}).then((result) => res.json(result));
-});
+
 /* GET users listing. */
 router.get('/admin', function (req, res, next) {
   Admin.find({}).then((result) => res.json(result));
 });
+
+/* GET finded user listing. */
+router.get('/:phonenumber', function (req, res, next) {
+  Cat.find({'number' : req.params.phonenumber}).then((result) => res.json(result));
+});
+
 // POST NEW USER FOR COURSE
 router.post('/', (req, res, next) => {
   const kitty = new Cat({
