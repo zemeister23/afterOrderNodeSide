@@ -61,12 +61,12 @@ router.post('/admin', (req, res, next) => {
 });
 
 // UPDATE THE ISLOGIN TO False
-router.post('/updateIsLoginToFalse',  (req,res,next) => {
-  Cat.findOneAndUpdate({'isLogin': true},{'isLogin':false}).then((result) => res.json(result));
+router.post('/updateIsLoginToFalse/:number',  (req,res,next) => {
+  Cat.findOneAndUpdate({'number': req.params.number},{'isLogin':false}).then((result) => res.json(result));
 });
 // UPDATE THE ISLOGIN TO True
-router.post('/updateIsLoginToTrue',  (req,res,next) => {
-  Cat.findOneAndUpdate({'isLogin': false},{'isLogin':true}).then((result) => res.json(result));
+router.post('/updateIsLoginToTrue/:number',  (req,res,next) => {
+  Cat.findOneAndUpdate({'number': req.params.number},{'isLogin':true}).then((result) => res.json(result));
 });
 
 // DELETE NEW USER FOR COURSE
